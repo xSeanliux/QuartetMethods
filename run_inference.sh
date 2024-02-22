@@ -9,6 +9,7 @@ FACTORS=(0.5 1.0 2.0 4.0 8.0)
 
 if [[ $OS_TYPE = "RedHat" ]]; then 
     PAUP_PATH=./QuartetMethods/scripts/paup4a168_centos64
+    chmod a+x $PAUP_PATH
 elif [[ $OS_TYPE = "OSX" ]]; then 
     PAUP_PATH=./QuartetMethods/scripts/paup
 else 
@@ -62,8 +63,8 @@ for f in ${FACTORS[@]}; do
                         if $DO_MP4; then 
                             >nexus_temp.nex
                             Rscript ./QuartetMethods/scripts/commandLineNex.R -f $CSVS/sim_tree$i'_'$r.csv -o nexus_temp.nex -p 3 -m 1.0 > /dev/null 2> /dev/null
-                            $PAUP_PATH -n nexus_temp.nex > tmp_out.txt 2> tmp_run.txt
                             echo "✅ MP4 nexus files"
+                            $PAUP_PATH -n nexus_temp.nex > tmp_out.txt 2> tmp_run.txt
                             mv paup_out.trees $TREEOUTPUT/MP4/trees/$id.trees
                             mv paup_out.scores $TREEOUTPUT/MP4/scores/$id.scores
                             echo "✅ MP4 tree inference" 
