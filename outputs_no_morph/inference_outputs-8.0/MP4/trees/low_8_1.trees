@@ -1,0 +1,52 @@
+#NEXUS 
+
+Begin trees;  [Treefile saved Fri Feb 16 23:57:51 2024]
+[!
+>Data file = nexus_temp.nex
+>Heuristic search settings:
+>  Optimality criterion = parsimony
+>    Character-status summary:
+>      Of 300 total characters:
+>        All characters are of type 'unord'
+>        All characters have equal weight
+>        235 characters are parsimony-uninformative
+>        Number of parsimony-informative characters = 65
+>  Starting tree(s) obtained via stepwise addition
+>    Addition sequence: random
+>    Number of replicates = 25
+>    Starting seed = generated automatically
+>    Number of trees held at each step = 1
+>  Branch-swapping algorithm: tree-bisection-reconnection (TBR) with reconnection limit = 8
+>    Steepest descent option not in effect
+>  'Maxtrees' setting = 100 (will not be increased)
+>  Branches collapsed (creating polytomies) if maximum branch length is zero
+>  'MulTrees' option in effect
+>  No topological constraints in effect
+>  Trees are unrooted
+>
+>Heuristic search completed
+>  Total number of rearrangements tried = 7380
+>  Score of best tree(s) found = 2360
+>  Number of trees retained = 7
+>  Time used = 0.02 sec (CPU time = 0.02 sec)
+]
+	Translate
+		1 t1,
+		2 t2,
+		3 t3,
+		4 t4,
+		5 t5,
+		6 t6,
+		7 t7,
+		8 t8,
+		9 t9,
+		10 t10
+		;
+tree 'PAUP_1' = [&U] (1,(2,3),(((4,((5,9),7)),(6,10)),8));
+tree 'PAUP_2' = [&U] (1,(2,3),(((4,((5,9),7)),8),(6,10)));
+tree 'PAUP_3' = [&U] (1,(2,3),((4,((5,9),7)),((6,10),8)));
+tree 'PAUP_4' = [&U] (1,((2,3),(4,((5,9),7))),((6,10),8));
+tree 'PAUP_5' = [&U] (1,((2,3),((6,10),8)),(4,((5,9),7)));
+tree 'PAUP_6' = [&U] (1,(2,(3,(4,((5,9),7)))),((6,10),8));
+tree 'PAUP_7' = [&U] (1,((2,(4,((5,9),7))),3),((6,10),8));
+End;

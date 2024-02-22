@@ -24,7 +24,7 @@ opt = parse_args(opt_parser);
 for (x in unlist(lapply(option_list, function(x) slot(x, 'long_flag')))) assert (paste0(substr(x, 2, nchar(x)), ' cannot be null'), {!is.null(opt[[substr(x, 3, nchar(x))]])})
 
 orig_wd <- getwd()
-setwd('/home/zxliu2/LingPhyloR')
+setwd('/Users/liusean/Desktop/Projects/Coding/Phylo/LingPhyloR')
 source("inferenceUtils.R", local=T)
 setwd(orig_wd)
 

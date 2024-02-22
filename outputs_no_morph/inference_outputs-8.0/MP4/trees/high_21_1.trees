@@ -1,0 +1,63 @@
+#NEXUS 
+
+Begin trees;  [Treefile saved Sat Feb 17 00:27:06 2024]
+[!
+>Data file = nexus_temp.nex
+>Heuristic search settings:
+>  Optimality criterion = parsimony
+>    Character-status summary:
+>      Of 300 total characters:
+>        All characters are of type 'unord'
+>        All characters have equal weight
+>        174 characters are parsimony-uninformative
+>        Number of parsimony-informative characters = 126
+>  Starting tree(s) obtained via stepwise addition
+>    Addition sequence: random
+>    Number of replicates = 25
+>    Starting seed = generated automatically
+>    Number of trees held at each step = 1
+>  Branch-swapping algorithm: tree-bisection-reconnection (TBR) with reconnection limit = 8
+>    Steepest descent option not in effect
+>  'Maxtrees' setting = 100 (will not be increased)
+>  Branches collapsed (creating polytomies) if maximum branch length is zero
+>  'MulTrees' option in effect
+>  No topological constraints in effect
+>  Trees are unrooted
+>
+>Heuristic search completed
+>  Total number of rearrangements tried = 9367
+>  Score of best tree(s) found = 2144
+>  Number of trees retained = 18
+>  Time used = 0.01 sec (CPU time = 0.02 sec)
+]
+	Translate
+		1 t1,
+		2 t2,
+		3 t3,
+		4 t4,
+		5 t5,
+		6 t6,
+		7 t7,
+		8 t8,
+		9 t9,
+		10 t10
+		;
+tree 'PAUP_1' = [&U] (1,2,(3,(((4,5),(6,(9,10))),(7,8))));
+tree 'PAUP_2' = [&U] (1,2,(3,((((4,(6,(9,10))),5),8),7)));
+tree 'PAUP_3' = [&U] (1,2,(3,((((4,(6,(9,10))),5),7),8)));
+tree 'PAUP_4' = [&U] (1,2,(3,((((4,5),(6,(9,10))),8),7)));
+tree 'PAUP_5' = [&U] (1,2,(3,((((4,5),(6,(9,10))),7),8)));
+tree 'PAUP_6' = [&U] (1,2,(3,(((4,((6,9),10)),5),(7,8))));
+tree 'PAUP_7' = [&U] (1,2,(3,(((4,((6,10),9)),5),(7,8))));
+tree 'PAUP_8' = [&U] (1,2,(3,(((4,(6,(9,10))),5),(7,8))));
+tree 'PAUP_9' = [&U] (1,2,(3,(((4,5),((6,10),9)),(7,8))));
+tree 'PAUP_10' = [&U] (1,2,(3,(((4,5),((6,9),10)),(7,8))));
+tree 'PAUP_11' = [&U] (1,2,(3,((((4,5),((6,9),10)),8),7)));
+tree 'PAUP_12' = [&U] (1,2,(3,((((4,5),((6,10),9)),8),7)));
+tree 'PAUP_13' = [&U] (1,2,(3,((((4,((6,10),9)),5),8),7)));
+tree 'PAUP_14' = [&U] (1,2,(3,((((4,((6,9),10)),5),8),7)));
+tree 'PAUP_15' = [&U] (1,2,(3,((((4,5),((6,9),10)),7),8)));
+tree 'PAUP_16' = [&U] (1,2,(3,((((4,5),((6,10),9)),7),8)));
+tree 'PAUP_17' = [&U] (1,2,(3,((((4,((6,10),9)),5),7),8)));
+tree 'PAUP_18' = [&U] (1,2,(3,((((4,((6,9),10)),5),7),8)));
+End;

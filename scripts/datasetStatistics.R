@@ -22,7 +22,7 @@ getCharCountsForMp1 <- function(numedge=0) {
     vec2 = c()
     for (t in 1:32) {
       for (r in 1:4) {
-        if (numedge == 0) file = paste0('/Users/liusean/Desktop/Projects/Coding/Phylo/QuartetMethods/example/simulated_data_small/', c,'_noborrowing/', 'sim_tree',t,'_',r,'.csv')
+        if (numedge == 0) file = paste0('/Users/liusean/Desktop/Projects/Coding/Phylo/QuartetMethods/example/simulated_data_small-8.0/', c,'_noborrowing/', 'sim_tree',t,'_',r,'.csv')
         else {
           assert({FALSE})
         #   if (c %in% 1:5) ch = c+5

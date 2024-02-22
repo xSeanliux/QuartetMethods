@@ -1,0 +1,75 @@
+
+================== ASTRAL ===================== 
+
+This is ASTRAL version 5.7.8
+Gene trees are treated as unrooted
+252 trees read from quartet_temp.txt
+index0
+All output trees will be *arbitrarily* rooted at t10
+
+======== Running the main analysis
+Number of taxa: 10 (10 species)
+Taxa: [t10, t4, t2, t3, t5, t8, t9, t1, t7, t6]
+Taxon occupancy: {t4=118, t5=91, t10=80, t6=60, t7=82, t8=115, t9=147, t1=100, t2=116, t3=99}
+Number of gene trees: 252
+252 trees have missing taxa
+Calculating quartet distance matrix (for completion of X)
+Species tree distances calculated ...
+Will attempt to complete bipartitions from X before adding using a distance matrix.
+Building set of clusters (X) from gene trees 
+------------------------------
+gradient0: 67
+Number of Clusters after addition by distance: 67
+calculating extra bipartitions to be added at level 1 ...
+Adding to X using resolutions of greedy consensus ...
+Limit for sigma of degrees:300
+polytomy size limit : 3
+discarded polytomies:  []
+Threshold 0.0:
+Threshold 0.01:
+Threshold 0.02:
+Threshold 0.05:
+Threshold 0.1:
+Threshold 0.2:
+Threshold 0.3333333333333333:
+max k is :0
+Number of Clusters after addition by greedy: 67
+gradient0 in heuristiic: 67
+calculating all possible bipartitions ...
+Number of Clusters After Adding All possible clusters: 1023
+partitions formed in 0.045 secs
+Dynamic Programming starting after 0.045 secs
+Using tree-based weight calculation.
+Using polytree-based weight calculation.
+Polytree max score: 252
+Polytree building time: 0.003 seconds.
+Number of quartet trees in the gene trees: 252
+Size of largest cluster: 10
+Greedy score: 239
+estimationFactor: 1.0543933054393306
+Sub-optimal score: 239
+Total Number of elements weighted: 1291
+Normalized score (portion of input quartet trees satisfied before correcting for multiple individuals): 0.9484126984126984
+Optimization score: 239
+Optimal tree inferred in 0.094 secs.
+(t4,(t10,(t5,(t3,(t6,((t2,t7),(t1,(t8,t9))))))));
+Final quartet score is: 239
+Final normalized quartet score is: 0.9484126984126984
+You may want to ignore posterior probabilities and other statistics related to the following branch branch because the effective number of genes impacting it is only 10:
+	{t2, t7}
+You may want to ignore posterior probabilities and other statistics related to the following branch branch because the effective number of genes impacting it is only 9:
+	{t8, t9}
+You may want to ignore posterior probabilities and other statistics related to the following branch branch because the effective number of genes impacting it is only 19:
+	{t8, t9, t1}
+You may want to ignore posterior probabilities and other statistics related to the following branch branch because the effective number of genes impacting it is only 0:
+	{t2, t8, t9, t1, t7}
+You may want to ignore posterior probabilities and other statistics related to the following branch branch because the effective number of genes impacting it is only 12:
+	{t2, t8, t9, t1, t7, t6}
+You may want to ignore posterior probabilities and other statistics related to the following branch branch because the effective number of genes impacting it is only 3:
+	{t2, t3, t8, t9, t1, t7, t6}
+You may want to ignore posterior probabilities and other statistics related to the following branch branch because the effective number of genes impacting it is only 5:
+	{t2, t3, t5, t8, t9, t1, t7, t6}
+Extended species tree:
+(t10,((t5,(t3,(t6,((t2,t7)1:1.9924301646902058,(t1,(t8,t9)0.99:0.7985076962177715)1:1.4916548767777167)0.33:0.0)1:2.159484249353373)0.67:0.2876820724517809)0.93:0.6931471805599453,t4));
+Weight calculation took 0.023389092 secs
+ASTRAL finished in 0.129 secs

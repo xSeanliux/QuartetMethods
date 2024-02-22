@@ -1,0 +1,61 @@
+
+================== ASTRAL ===================== 
+
+This is ASTRAL version 5.7.8
+Gene trees are treated as unrooted
+7513 trees read from quartet_temp.txt
+index0
+All output trees will be *arbitrarily* rooted at t2
+
+======== Running the main analysis
+Number of taxa: 10 (10 species)
+Taxa: [t2, t5, t1, t3, t6, t7, t8, t9, t10, t4]
+Taxon occupancy: {t4=2909, t5=2736, t6=2607, t10=3217, t7=2943, t8=3475, t9=3424, t1=2754, t2=3109, t3=2878}
+Number of gene trees: 7513
+7513 trees have missing taxa
+Calculating quartet distance matrix (for completion of X)
+Species tree distances calculated ...
+Will attempt to complete bipartitions from X before adding using a distance matrix.
+Building set of clusters (X) from gene trees 
+------------------------------
+gradient0: 85
+Number of Clusters after addition by distance: 85
+calculating extra bipartitions to be added at level 1 ...
+Adding to X using resolutions of greedy consensus ...
+Limit for sigma of degrees:300
+polytomy size limit : 3
+discarded polytomies:  []
+Threshold 0.0:
+Threshold 0.01:
+Threshold 0.02:
+Threshold 0.05:
+Threshold 0.1:
+Threshold 0.2:
+Threshold 0.3333333333333333:
+max k is :0
+Number of Clusters after addition by greedy: 85
+gradient0 in heuristiic: 85
+calculating all possible bipartitions ...
+Number of Clusters After Adding All possible clusters: 1023
+partitions formed in 0.344 secs
+Dynamic Programming starting after 0.344 secs
+Using tree-based weight calculation.
+Using polytree-based weight calculation.
+Polytree max score: 7513
+Polytree building time: 0.019 seconds.
+Number of quartet trees in the gene trees: 7513
+Size of largest cluster: 10
+Greedy score: 7380
+estimationFactor: 1.018021680216802
+Sub-optimal score: 7380
+Total Number of elements weighted: 975
+Normalized score (portion of input quartet trees satisfied before correcting for multiple individuals): 0.9822973512578198
+Optimization score: 7380
+Optimal tree inferred in 0.548 secs.
+(t5,(t4,((t7,(t10,(t8,t9))),(t6,(t2,(t1,t3))))));
+Final quartet score is: 7380
+Final normalized quartet score is: 0.9822973512578198
+Extended species tree:
+(t2,((t1,t3)1:2.8332133440562166,(t6,((t7,(t10,(t8,t9)1:1.4839328306838062)1:1.488077055429833)1:5.440973666949551,(t4,t5)1:0.29783444391579894)1:2.3826278006675823)1:2.719100037288796));
+Weight calculation took 0.142186327 secs
+ASTRAL finished in 0.693 secs
