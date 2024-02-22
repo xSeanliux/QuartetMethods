@@ -1,10 +1,19 @@
 #!/bin/bash
 TREECOUNT=32
+OS_TYPE='RedHat' # RedHat / OSX
 DO_ASTRAL=true
 DO_MP4=true
 USE_MORPH=true
 TARGETTREES=./QuartetMethods/example/trees_small.txt
 FACTORS=(0.5 1.0 2.0 4.0 8.0)
+
+if [[ $OS_TYPE = "RedHat" ]]; then 
+    PAUP_PATH=./QuartetMethods/scripts/paup4a168_centos64
+elif [[ $OS_TYPE = "OSX" ]]; then 
+    PAUP_PATH=./QuartetMethods/scripts/paup
+else 
+    echo "PAUP_PATH could not be set (OSTYPE ="$OSTYPE" may be invalid )"
+fi
 
 for f in ${FACTORS[@]}; do
     DATASET=./QuartetMethods/example/simulated_data_small-$f
@@ -16,17 +25,17 @@ for f in ${FACTORS[@]}; do
     ASTRAL_SCOREOUTPUT=$TREEOUTPUT/ASTRAL/allscores.txt # This is for ASTRAL, TODO: change the name so that it reflects this
     MP4_SCOREOUTPUT=$TREEOUTPUT/MP4/allscores.txt # This is for ASTRAL, TODO: change the name so that it reflects this
     # initialise tree output space
-    mkdir $TREEOUTPUT
+    mkdir -p $TREEOUTPUT
     if [[ $DO_ASTRAL ]]; then
         mkdir $TREEOUTPUT/ASTRAL
-        mkdir $TREEOUTPUT/ASTRAL/logs
-        mkdir $TREEOUTPUT/ASTRAL/trees
+        mkdir -p $TREEOUTPUT/ASTRAL/logs
+        mkdir -p $TREEOUTPUT/ASTRAL/trees
         >$ASTRAL_SCOREOUTPUT # set up score output
     fi
     if [[ $DO_MP4 ]]; then
         mkdir $TREEOUTPUT/MP4
-        mkdir $TREEOUTPUT/MP4/trees
-        mkdir $TREEOUTPUT/MP4/scores
+        mkdir -p $TREEOUTPUT/MP4/trees
+        mkdir -p $TREEOUTPUT/MP4/scores
         >$MP4_SCOREOUTPUT # set up score output
     fi
     touch quartet_temp.txt
@@ -53,10 +62,10 @@ for f in ${FACTORS[@]}; do
                         if $DO_MP4; then 
                             >nexus_temp.nex
                             Rscript ./QuartetMethods/scripts/commandLineNex.R -f $CSVS/sim_tree$i'_'$r.csv -o nexus_temp.nex -p 3 -m 1.0 > /dev/null 2> /dev/null
-                            ./QuartetMethods/scripts/paup -n nexus_temp.nex > tmp_out.txt 2> tmp_run.txt
+                            $PAUP_PATH -n nexus_temp.nex > tmp_out.txt 2> tmp_run.txt
                             mv paup_out.trees $TREEOUTPUT/MP4/trees/$id.trees
                             mv paup_out.scores $TREEOUTPUT/MP4/scores/$id.scores
-                            echo "✅ MP4 Tree inference" 
+                            echo "Done: MP4 Tree inference" 
 
                             echo $FILE >> $MP4_SCOREOUTPUT
                             Rscript ./QuartetMethods/scripts/QuartetScorer.R -f nexus -r $(<current_tree.txt) -m 1 -p 0 -i $TREEOUTPUT/MP4/trees/$id.trees >> $MP4_SCOREOUTPUT
