@@ -63,23 +63,24 @@ for f in ${FACTORS[@]}; do
                             >nexus_temp.nex
                             Rscript ./QuartetMethods/scripts/commandLineNex.R -f $CSVS/sim_tree$i'_'$r.csv -o nexus_temp.nex -p 3 -m 1.0 > /dev/null 2> /dev/null
                             $PAUP_PATH -n nexus_temp.nex > tmp_out.txt 2> tmp_run.txt
+                            echo "✅ MP4 nexus files"
                             mv paup_out.trees $TREEOUTPUT/MP4/trees/$id.trees
                             mv paup_out.scores $TREEOUTPUT/MP4/scores/$id.scores
-                            echo "Done: MP4 Tree inference" 
+                            echo "✅ MP4 tree inference" 
 
                             echo $FILE >> $MP4_SCOREOUTPUT
                             Rscript ./QuartetMethods/scripts/QuartetScorer.R -f nexus -r $(<current_tree.txt) -m 1 -p 0 -i $TREEOUTPUT/MP4/trees/$id.trees >> $MP4_SCOREOUTPUT
-                            echo "✅ MP4* Tree scoring" 
+                            echo "✅ MP4 tree scoring" 
                         fi
                         if $DO_ASTRAL; then # run ASTRAL 
                             python -c "from QuartetMethods.scripts.getQuartets import *; print_quartets('$FILE')" > quartet_temp.txt
-                            echo "✅ Quartet generation" 
+                            echo "✅ ASTRAL quartet generation" 
                             java -jar ./QuartetMethods/ASTRAL/astral.5.7.8.jar -i quartet_temp.txt -o $TREEOUTPUT/ASTRAL/trees/$id.tre -x > /dev/null 2> $TREEOUTPUT/ASTRAL/logs/$id.log # Run ASTRAL in exact mode
-                            echo "✅ ASTRAL Tree inference" 
+                            echo "✅ ASTRAL tree inference" 
 
                             echo $FILE >> $ASTRAL_SCOREOUTPUT
                             Rscript ./QuartetMethods/scripts/QuartetScorer.R -f newick -r $(<current_tree.txt) -m 1 -p 0 -i $TREEOUTPUT/ASTRAL/trees/$id.tre >> $ASTRAL_SCOREOUTPUT
-                            echo "✅ ASTRAL Tree scoring" 
+                            echo "✅ ASTRAL tree scoring" 
                         fi
                     fi
                 done
