@@ -37,12 +37,12 @@ Number of Clusters after addition by greedy: 69
 gradient0 in heuristiic: 69
 calculating all possible bipartitions ...
 Number of Clusters After Adding All possible clusters: 1023
-partitions formed in 0.147 secs
-Dynamic Programming starting after 0.147 secs
+partitions formed in 0.686 secs
+Dynamic Programming starting after 0.686 secs
 Using tree-based weight calculation.
 Using polytree-based weight calculation.
 Polytree max score: 1998
-Polytree building time: 0.01 seconds.
+Polytree building time: 0.031 seconds.
 Number of quartet trees in the gene trees: 1998
 Size of largest cluster: 10
 Greedy score: 1948
@@ -51,7 +51,7 @@ Sub-optimal score: 1948
 Total Number of elements weighted: 1096
 Normalized score (portion of input quartet trees satisfied before correcting for multiple individuals): 0.974974974974975
 Optimization score: 1948
-Optimal tree inferred in 0.252 secs.
+Optimal tree inferred in 1.198 secs.
 (t5,(t2,((t1,t7),((t3,t9),(t6,(t10,(t8,t4)))))));
 Final quartet score is: 1948
 Final normalized quartet score is: 0.974974974974975
@@ -60,6 +60,6 @@ You may want to ignore posterior probabilities and other statistics related to t
 You may want to ignore posterior probabilities and other statistics related to the following branch branch because the effective number of genes impacting it is only 10:
 	{t5, t2}
 Extended species tree:
-(t3,(t9,((t6,(t10,(t8,t4)1:4.6379600088110795)0.84:0.2876820724517809)0.63:0.20763936477824438,((t1,t7)1:3.7176288673999194,(t2,t5)0.96:0.6061358035703156)1:2.1019143975318944)1:2.9087208965643607));
-Weight calculation took 0.066328839 secs
-ASTRAL finished in 0.324 secs
+(t3,(t9,((t6,(t10,(t8,t4)1:4.6379600088110795)0.84:0.2876820724517809)0.63:0.20763936477824438,((t1,t7)1:3.71762886739992,(t2,t5)0.96:0.6061358035703156)1:2.1019143975318944)1:2.9087208965643607));
+Weight calculation took 0.303793709 secs
+ASTRAL finished in 1.52 secs
