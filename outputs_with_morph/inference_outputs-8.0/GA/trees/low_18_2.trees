@@ -1,0 +1,32 @@
+#NEXUS
+[ID: 4566391467]
+begin taxa;
+	dimensions ntax=10;
+	taxlabels
+		t1
+		t2
+		t3
+		t4
+		t5
+		t6
+		t7
+		t8
+		t9
+		t10
+		;
+end;
+begin trees;
+	translate
+		1	t1,
+		2	t2,
+		3	t3,
+		4	t4,
+		5	t5,
+		6	t6,
+		7	t7,
+		8	t8,
+		9	t9,
+		10	t10
+		;
+   tree con_50_majrule = [&U] (1[&prob=1.00000000e+00,prob(percent)="100"]:1.160966e-01[&length_mean=4.30292229e-01,length_median=1.16096600e-01,length_95%HPD={2.24333600e-03,1.94673000e+00}],4[&prob=1.00000000e+00,prob(percent)="100"]:5.031044e-02[&length_mean=2.11582576e-01,length_median=5.03104400e-02,length_95%HPD={1.31283800e-04,9.84392400e-01}],5[&prob=1.00000000e+00,prob(percent)="100"]:2.293088e-02[&length_mean=1.06900948e-01,length_median=2.29308800e-02,length_95%HPD={5.48062800e-04,5.20963900e-01}],6[&prob=1.00000000e+00,prob(percent)="100"]:7.620137e-02[&length_mean=2.96662925e-01,length_median=7.62013700e-02,length_95%HPD={4.18685800e-03,1.58095100e+00}],7[&prob=1.00000000e+00,prob(percent)="100"]:6.931329e-02[&length_mean=2.82937103e-01,length_median=6.93132900e-02,length_95%HPD={9.75791600e-04,1.10841100e+00}],8[&prob=1.00000000e+00,prob(percent)="100"]:1.016038e-01[&length_mean=3.59757680e-01,length_median=1.01603800e-01,length_95%HPD={2.03619500e-03,1.90169000e+00}],9[&prob=1.00000000e+00,prob(percent)="100"]:9.315882e-02[&length_mean=3.60170728e-01,length_median=9.31588200e-02,length_95%HPD={1.46785700e-03,1.58103100e+00}],10[&prob=1.00000000e+00,prob(percent)="100"]:3.801601e-02[&length_mean=1.35261774e-01,length_median=3.80160100e-02,length_95%HPD={6.83810200e-05,4.76474400e-01}],(2[&prob=1.00000000e+00,prob(percent)="100"]:7.423484e-03[&length_mean=2.55117459e-02,length_median=7.42348400e-03,length_95%HPD={3.24657400e-05,1.50904700e-01}],3[&prob=1.00000000e+00,prob(percent)="100"]:2.216846e-02[&length_mean=6.48908941e-02,length_median=2.21684600e-02,length_95%HPD={4.89395400e-04,2.79732000e-01}])[&prob=5.03311258e-01,prob(percent)="50"]:2.895965e-02[&length_mean=1.03306983e-01,length_median=2.89596500e-02,length_95%HPD={4.23357600e-04,3.72783700e-01}]);
+end;
