@@ -1,6 +1,6 @@
 #NEXUS 
 
-Begin trees;  [Treefile saved Fri Feb 23 23:57:23 2024]
+Begin trees;  [Treefile saved Sat Feb 24 21:47:53 2024]
 [!
 >Data file = mp4_nexus_temp.nex
 >Heuristic search settings:
@@ -25,10 +25,10 @@ Begin trees;  [Treefile saved Fri Feb 23 23:57:23 2024]
 >  Trees are unrooted
 >
 >Heuristic search completed
->  Total number of rearrangements tried = 10353
+>  Total number of rearrangements tried = 13245
 >  Score of best tree(s) found = 2676
 >  Number of trees retained = 5
->  Time used = 0.01 sec (CPU time = 0.02 sec)
+>  Time used = 0.03 sec (CPU time = 0.02 sec)
 ]
 	Translate
 		1 t1,
@@ -42,9 +42,9 @@ Begin trees;  [Treefile saved Fri Feb 23 23:57:23 2024]
 		9 t9,
 		10 t10
 		;
-tree 'PAUP_1' = [&U] (1,(((((2,5),10),6),(3,9)),(4,8)),7);
-tree 'PAUP_2' = [&U] (1,(((((2,5),10),(3,9)),6),(4,8)),7);
-tree 'PAUP_3' = [&U] (1,((((2,5),10),((3,9),6)),(4,8)),7);
-tree 'PAUP_4' = [&U] (1,((((2,5),((3,9),10)),6),(4,8)),7);
-tree 'PAUP_5' = [&U] (1,(((((2,5),(3,9)),10),6),(4,8)),7);
+tree 'PAUP_1' = [&U] (1,(((((2,5),10),(3,9)),6),(4,8)),7);
+tree 'PAUP_2' = [&U] (1,((((2,5),((3,9),10)),6),(4,8)),7);
+tree 'PAUP_3' = [&U] (1,(((((2,5),(3,9)),10),6),(4,8)),7);
+tree 'PAUP_4' = [&U] (1,(((((2,5),10),6),(3,9)),(4,8)),7);
+tree 'PAUP_5' = [&U] (1,((((2,5),10),((3,9),6)),(4,8)),7);
 End;

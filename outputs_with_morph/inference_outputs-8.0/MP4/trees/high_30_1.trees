@@ -1,6 +1,6 @@
 #NEXUS 
 
-Begin trees;  [Treefile saved Sat Feb 24 00:03:32 2024]
+Begin trees;  [Treefile saved Sat Feb 24 21:56:02 2024]
 [!
 >Data file = mp4_nexus_temp.nex
 >Heuristic search settings:
@@ -25,10 +25,10 @@ Begin trees;  [Treefile saved Sat Feb 24 00:03:32 2024]
 >  Trees are unrooted
 >
 >Heuristic search completed
->  Total number of rearrangements tried = 10980
+>  Total number of rearrangements tried = 11485
 >  Score of best tree(s) found = 2403
 >  Number of trees retained = 11
->  Time used = 0.02 sec (CPU time = 0.01 sec)
+>  Time used = 0.02 sec (CPU time = 0.02 sec)
 ]
 	Translate
 		1 t1,
@@ -42,15 +42,15 @@ Begin trees;  [Treefile saved Sat Feb 24 00:03:32 2024]
 		9 t9,
 		10 t10
 		;
-tree 'PAUP_1' = [&U] (1,(2,((4,8),6)),((3,(7,(9,10))),5));
-tree 'PAUP_2' = [&U] (1,((2,((4,8),6)),(3,(7,(9,10)))),5);
-tree 'PAUP_3' = [&U] (1,(2,((3,(7,(9,10))),((4,8),6))),5);
-tree 'PAUP_4' = [&U] (1,((2,(3,(7,(9,10)))),((4,8),6)),5);
-tree 'PAUP_5' = [&U] (1,((2,((4,8),6)),5),(3,(7,(9,10))));
-tree 'PAUP_6' = [&U] (1,(((2,(4,8)),6),5),(3,(7,(9,10))));
-tree 'PAUP_7' = [&U] (1,(((2,(4,8)),6),(3,(7,(9,10)))),5);
-tree 'PAUP_8' = [&U] (1,(((2,6),(4,8)),5),(3,(7,(9,10))));
-tree 'PAUP_9' = [&U] (1,(((2,6),(4,8)),(3,(7,(9,10)))),5);
-tree 'PAUP_10' = [&U] (1,((2,6),(4,8)),((3,(7,(9,10))),5));
-tree 'PAUP_11' = [&U] (1,((2,(4,8)),6),((3,(7,(9,10))),5));
+tree 'PAUP_1' = [&U] (1,((2,6),(4,8)),((3,(7,(9,10))),5));
+tree 'PAUP_2' = [&U] (1,(((2,6),(4,8)),(3,(7,(9,10)))),5);
+tree 'PAUP_3' = [&U] (1,(((2,6),(4,8)),5),(3,(7,(9,10))));
+tree 'PAUP_4' = [&U] (1,(((2,(4,8)),6),5),(3,(7,(9,10))));
+tree 'PAUP_5' = [&U] (1,(((2,(4,8)),6),(3,(7,(9,10)))),5);
+tree 'PAUP_6' = [&U] (1,((2,((4,8),6)),5),(3,(7,(9,10))));
+tree 'PAUP_7' = [&U] (1,((2,((4,8),6)),(3,(7,(9,10)))),5);
+tree 'PAUP_8' = [&U] (1,(2,((4,8),6)),((3,(7,(9,10))),5));
+tree 'PAUP_9' = [&U] (1,((2,(4,8)),6),((3,(7,(9,10))),5));
+tree 'PAUP_10' = [&U] (1,((2,(3,(7,(9,10)))),((4,8),6)),5);
+tree 'PAUP_11' = [&U] (1,(2,((3,(7,(9,10))),((4,8),6))),5);
 End;
