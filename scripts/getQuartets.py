@@ -5,6 +5,8 @@ import glob
 import json
 from tqdm import tqdm
 from pathlib import Path
+from Bio import Phylo
+import sys
 
 def get_all_csv_paths(folder_path):
     all_paths = glob.glob(folder_path + "/*/*.csv") + glob.glob(folder_path + "/*.csv")
@@ -121,3 +123,11 @@ def get_quartets_from_folder(csvs_folder: str, save_metadata: bool, output_folde
     if save_metadata:
         with open("./metadata.json", "w") as f:
             json.dump(metadatas, f)
+
+def nexus_to_newick(trees_path): # expects a path to a .trees file under GA/ in NEXUS format. Reads all trees.
+    with open(trees_path, "r") as f:
+        data = Phylo.NexusIO.parse(f)
+        w = Phylo.NewickIO.write(data, sys.stdout, plain=True) 
+        # plain = True removes branch lengths which aren't important
+        # write to stdout to enable piping
+        sys.stderr.write(f'{w} trees written')
