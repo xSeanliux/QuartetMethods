@@ -4,19 +4,21 @@ TREECOUNT=32
 OS_TYPE='RedHat' # RedHat / OSX
 DO_ASTRAL=false  # a(stral)
 DO_MP4=false     # p(arsimony)
-DO_GA=false      # g
-USE_MORPH=false  # m
+DO_GA=false      # g(ray & atkinson)
+DO_HEURISTIC_ASTRAL=false # h(euristic)
+USE_MORPH=false  # m(orphology)
 TARGETTREES=./QuartetMethods/example/trees_small.txt
 FACTORS=(0.5 1.0 2.0 4.0 8.0) # f
 RUNID=$(tr -dc A-Za-z0-9 </dev/urandom | head -c 13; echo) # random string so that runs don't use the same name (i.e. for temp files)
 MB_EXEC=/projects/tallis/zxliu2/bin/bin/mb
-while getopts 'apgmf::' o; do 
+while getopts 'apghmf::' o; do 
     echo $o' '$OPTARG
     case $o in 
         a) DO_ASTRAL=true;;
         p) DO_MP4=true;;
         g) DO_GA=true;;
         m) USE_MORPH=true;;
+        h) DO_HEURISTIC_ASTRAL=true;;
         f) 
         if [[ ${FACTORS[@]} =~ $OPTARG ]]; then  
             echo "FOUND" 
@@ -44,17 +46,22 @@ for f in ${FACTORS[@]}; do
     echo "RUNNING "$f
     DATASET=./QuartetMethods/example/simulated_data_small-$f
     if $USE_MORPH; then 
-        TREEOUTPUT=./QuartetMethods/outputs_with_morphology/inference_outputs-$f/
+        TREEOUTPUT=./QuartetMethods/outputs_with_morph/inference_outputs-$f/
     else
-        TREEOUTPUT=./QuartetMethods/outputs_no_morphology/inference_outputs-$f/
+        TREEOUTPUT=./QuartetMethods/outputs_no_morph/inference_outputs-$f/
     fi
     ASTRAL_SCOREOUTPUT=$TREEOUTPUT/ASTRAL/allscores.txt # This is for ASTRAL, TODO: change the name so that it reflects this
+    ASTRAL_H_SCOREOUTPUT=$TREEOUTPUT/ASTRAL-H/allscores.txt # This is for ASTRAL, TODO: change the name so that it reflects this
     MP4_SCOREOUTPUT=$TREEOUTPUT/MP4/allscores.txt # This is for ASTRAL, TODO: change the name so that it reflects this
     GA_SCOREOUTPUT=$TREEOUTPUT/GA/allscores.txt # This is for ASTRAL, TODO: change the name so that it reflects this
     # initialise tree output space
     mkdir -p $TREEOUTPUT
+    if $DO_HEURISTIC_ASTRAL; then
+        mkdir -p $TREEOUTPUT/ASTRAL-H/logs
+        mkdir -p $TREEOUTPUT/ASTRAL-H/trees
+        >$ASTRAL_H_SCOREOUTPUT # set up score output
+    fi
     if $DO_ASTRAL; then
-        mkdir $TREEOUTPUT/ASTRAL
         mkdir -p $TREEOUTPUT/ASTRAL/logs
         mkdir -p $TREEOUTPUT/ASTRAL/trees
         >$ASTRAL_SCOREOUTPUT # set up score output
@@ -68,7 +75,7 @@ for f in ${FACTORS[@]}; do
         mkdir -p $TREEOUTPUT/GA/trees
         mkdir -p $TREEOUTPUT/GA/trees1
         mkdir -p $TREEOUTPUT/GA/scores
-        >$MP4_SCOREOUTPUT # set up score output
+        >$GA_SCOREOUTPUT # set up score output
     fi
     touch quartet_temp.txt
     touch nexus_temp.txt
@@ -99,7 +106,6 @@ for f in ${FACTORS[@]}; do
                             mv Bayes_out.t $TREEOUTPUT/GA/trees1/$id.trees 
                             rm Bayes_out.* mb_tmp*
                         fi
-                        exit 0
                         if $DO_MP4; then 
                             >nexus_temp.nex
                             Rscript ./QuartetMethods/scripts/commandLineNex.R -f $FILE -o mp4_nexus_temp.nex -p 3 -m 1.0 > /dev/null 2> /dev/null
@@ -114,16 +120,36 @@ for f in ${FACTORS[@]}; do
                             echo "✅ MP4 tree scoring" 
                             rm mp4_nexus_temp.nex
                         fi
-                        if $DO_ASTRAL; then # run ASTRAL 
+                        if $DO_ASTRAL || $DO_HEURISTIC_ASTRAL; then # run ASTRAL 
                             python -c "from QuartetMethods.scripts.getQuartets import *; print_quartets('$FILE')" > quartet_temp.txt
                             echo "✅ ASTRAL quartet generation" 
-                            java -jar ./QuartetMethods/ASTRAL/astral.5.7.8.jar -i quartet_temp.txt -o $TREEOUTPUT/ASTRAL/trees/$id.tre -x > /dev/null 2> $TREEOUTPUT/ASTRAL/logs/$id.log # Run ASTRAL in exact mode
-                            echo "✅ ASTRAL tree inference" 
 
-                            echo $FILE >> $ASTRAL_SCOREOUTPUT
-                            Rscript ./QuartetMethods/scripts/QuartetScorer.R -f newick -r $CURRENT_TREE -m 1 -p 0 -i $TREEOUTPUT/ASTRAL/trees/$id.tre >> $ASTRAL_SCOREOUTPUT
-                            echo "✅ ASTRAL tree scoring" 
-                            rm quartet_temp.txt
+                            if $DO_ASTRAL; then 
+                                java -jar ./QuartetMethods/ASTRAL/astral.5.7.8.jar -i quartet_temp.txt -o $TREEOUTPUT/ASTRAL/trees/$id.tre -x > /dev/null 2> $TREEOUTPUT/ASTRAL/logs/$id.log # Run ASTRAL in exact mode
+                                echo "✅ ASTRAL tree inference" 
+
+                                echo $FILE >> $ASTRAL_SCOREOUTPUT
+                                Rscript ./QuartetMethods/scripts/QuartetScorer.R -f newick -r $CURRENT_TREE -m 1 -p 0 -i $TREEOUTPUT/ASTRAL/trees/$id.tre >> $ASTRAL_SCOREOUTPUT
+                                echo "✅ ASTRAL tree scoring" 
+                                rm quartet_temp.txt
+                            fi
+
+                            if $DO_HEURISTIC_ASTRAL; then 
+                                if ! [[ -f $TREEOUTPUT/GA/trees1/$id.trees ]]; then 
+                                    echo "❌ Heuristic ASTRAL NEXUS file not found: "$TREEOUTPUT/GA/trees1/$id.trees
+                                    exit 0
+                                fi
+                                python -c "from QuartetMethods.scripts.getQuartets import *; nexus_to_newick('$TREEOUTPUT/GA/trees1/$id.trees')" > bipartitions.bootstrap.trees
+                                java -jar ./QuartetMethods/ASTRAL/astral.5.7.8.jar -i quartet_temp.txt -o $TREEOUTPUT/ASTRAL-H/trees/$id.tre -e bipartitions.bootstrap.trees -x > /dev/null 2> $TREEOUTPUT/ASTRAL-H/logs/$id.log # Run ASTRAL in exact mode
+                                echo "✅ Heuristic ASTRAL tree inference" 
+
+                                echo $FILE >> $ASTRAL_H_SCOREOUTPUT
+                                Rscript ./QuartetMethods/scripts/QuartetScorer.R -f newick -r $CURRENT_TREE -m 1 -p 0 -i $TREEOUTPUT/ASTRAL-H/trees/$id.tre >> $ASTRAL_H_SCOREOUTPUT
+                                echo "✅ Heuristic ASTRAL tree scoring" 
+                                rm quartet_temp.txt
+                                rm bipartitions.bootstrap.trees
+                                exit 0
+                            fi
                         fi
                     fi
                 done
