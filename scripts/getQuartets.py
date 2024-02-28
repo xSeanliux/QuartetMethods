@@ -6,6 +6,8 @@ import json
 from tqdm import tqdm
 from pathlib import Path
 from Bio import Phylo
+import treeswift
+from io import StringIO
 import sys
 
 def get_all_csv_paths(folder_path):
@@ -127,7 +129,18 @@ def get_quartets_from_folder(csvs_folder: str, save_metadata: bool, output_folde
 def nexus_to_newick(trees_path): # expects a path to a .trees file under GA/ in NEXUS format. Reads all trees.
     with open(trees_path, "r") as f:
         data = Phylo.NexusIO.parse(f)
-        w = Phylo.NewickIO.write(data, sys.stdout, plain=True) 
-        # plain = True removes branch lengths which aren't important
-        # write to stdout to enable piping
-        sys.stderr.write(f'{w} trees written')
+        output = StringIO()
+        written_trees = Phylo.NewickIO.write(data, output, plain=True) # plain = True removes branch lengths which aren't important
+        newick_trees = output.getvalue().split('\n')[:-1] # there's a newline following the last tree
+        def resolve_tree(newick_tree):
+            tree = treeswift.read_tree(newick_tree, schema='newick')
+            #print(newick_tree)
+            tree.resolve_polytomies()
+            return tree.newick()
+        trees_resolved = list(map(
+        resolve_tree 
+        , newick_trees))
+        output.close()
+        for t in trees_resolved:
+            print(t)
+        print(f'{len(trees_resolved)} Trees Written with arbitrary polytomy splitting', file=sys.stderr)

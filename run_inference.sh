@@ -140,7 +140,8 @@ for f in ${FACTORS[@]}; do
                                     exit 0
                                 fi
                                 python -c "from QuartetMethods.scripts.getQuartets import *; nexus_to_newick('$TREEOUTPUT/GA/trees1/$id.trees')" > bipartitions.bootstrap.trees
-                                java -jar ./QuartetMethods/ASTRAL/astral.5.7.8.jar -i quartet_temp.txt -o $TREEOUTPUT/ASTRAL-H/trees/$id.tre -e bipartitions.bootstrap.trees -x > /dev/null 2> $TREEOUTPUT/ASTRAL-H/logs/$id.log # Run ASTRAL in exact mode
+                                echo "✅ Heuristic ASTRAL NEXUS to Newick" 
+                                java -jar ./QuartetMethods/ASTRAL/astral.5.7.8.jar -i quartet_temp.txt -o $TREEOUTPUT/ASTRAL-H/trees/$id.tre -e bipartitions.bootstrap.trees > /dev/null 2> $TREEOUTPUT/ASTRAL-H/logs/$id.log # Run ASTRAL in exact mode
                                 echo "✅ Heuristic ASTRAL tree inference" 
 
                                 echo $FILE >> $ASTRAL_H_SCOREOUTPUT
