@@ -1,0 +1,13 @@
+
+================== ASTRAL ===================== 
+
+This is ASTRAL version 5.7.8
+Gene trees are treated as unrooted
+22 trees read from tmp_quartet_GCeO40SbIHZfI.txt
+index0
+All output trees will be *arbitrarily* rooted at t6
+Exception in thread "main" java.lang.RuntimeException: Error: t9 was not seen in main input trees.
+	at phylonet.coalescent.TaxonIdentifier.taxonId(TaxonIdentifier.java:38)
+	at phylonet.coalescent.CommandLine.readInputTrees(CommandLine.java:797)
+	at phylonet.coalescent.CommandLine.runInference(CommandLine.java:585)
+	at phylonet.coalescent.CommandLine.main(CommandLine.java:513)

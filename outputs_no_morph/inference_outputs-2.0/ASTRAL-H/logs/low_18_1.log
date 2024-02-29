@@ -1,0 +1,62 @@
+
+================== ASTRAL ===================== 
+
+This is ASTRAL version 5.7.8
+Gene trees are treated as unrooted
+1122 trees read from tmp_quartet_n3pChO3AwisGK.txt
+index0
+All output trees will be *arbitrarily* rooted at t4
+201 extra trees read from tmp_bipartitions_n3pChO3AwisGK.bootstrap.trees
+
+======== Running the main analysis
+Number of taxa: 10 (10 species)
+Taxa: [t4, t7, t2, t3, t5, t6, t10, t9, t8, t1]
+Taxon occupancy: {t4=314, t5=464, t6=525, t10=510, t7=322, t8=353, t9=529, t1=488, t2=498, t3=485}
+Number of gene trees: 1122
+1122 trees have missing taxa
+Calculating quartet distance matrix (for completion of X)
+Species tree distances calculated ...
+Will attempt to complete bipartitions from X before adding using a distance matrix.
+Building set of clusters (X) from gene trees 
+------------------------------
+gradient0: 71
+Number of Clusters after addition by distance: 71
+calculating extra bipartitions to be added at level 1 ...
+Adding to X using resolutions of greedy consensus ...
+Limit for sigma of degrees:300
+polytomy size limit : 3
+discarded polytomies:  []
+Threshold 0.0:
+Threshold 0.01:
+Threshold 0.02:
+Threshold 0.05:
+Threshold 0.1:
+Threshold 0.2:
+Threshold 0.3333333333333333:
+max k is :0
+Number of Clusters after addition by greedy: 71
+gradient0 in heuristiic: 71
+calculating extra bipartitions from extra input trees ...
+Number of Clusters after additions from extra trees: 121
+partitions formed in 0.396 secs
+Dynamic Programming starting after 0.396 secs
+Using tree-based weight calculation.
+Using polytree-based weight calculation.
+Polytree max score: 1122
+Polytree building time: 0.028 seconds.
+Number of quartet trees in the gene trees: 1122
+Size of largest cluster: 10
+Greedy score: 1034
+estimationFactor: 1.0851063829787233
+Sub-optimal score: 1034
+Total Number of elements weighted: 152
+Normalized score (portion of input quartet trees satisfied before correcting for multiple individuals): 0.9358288770053476
+Optimization score: 1050
+Optimal tree inferred in 0.52 secs.
+(t7,(t5,((t4,(t2,t3)),((t6,t10),(t8,(t9,t1))))));
+Final quartet score is: 1050
+Final normalized quartet score is: 0.9358288770053476
+Extended species tree:
+(t4,((t2,t3)1:2.6390573296152575,(((t6,t10)1:4.373658385003369,(t8,(t9,t1)1:2.184802057337663)1:2.159484249353373)1:0.5260930958967792,(t5,t7)1:1.2259517110447113)0.99:0.33420208808667373));
+Weight calculation took 0.031124567 secs
+ASTRAL finished in 0.746 secs
