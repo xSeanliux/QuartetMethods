@@ -6,18 +6,20 @@ DO_ASTRAL=false  # a(stral)
 DO_MP4=false     # p(arsimony)
 DO_GA=false      # g(ray & atkinson)
 DO_HEURISTIC_ASTRAL=false # h(euristic)
+DO_MORE_Q_ASTRAL=false # q(uartets)
 USE_MORPH=false  # m(orphology)
 TARGETTREES=./QuartetMethods/example/trees_small.txt
 FACTORS=(0.5 1.0 2.0 4.0 8.0) # f
 SETTINGS=(low mod modhigh high veryhigh) # s 
 RUNID=$(tr -dc A-Za-z0-9 </dev/urandom | head -c 13; echo) # random string so that runs don't use the same name (i.e. for temp files)
 MB_EXEC=/projects/tallis/zxliu2/bin/bin/mb
-while getopts 'apghmf:' o; do 
+while getopts 'apgqhmf:' o; do 
     echo $o' '$OPTARG
     case $o in 
         a) DO_ASTRAL=true;;
         p) DO_MP4=true;;
         g) DO_GA=true;;
+        q) DO_MORE_Q_ASTRAL=true;;
         m) USE_MORPH=true;;
         h) DO_HEURISTIC_ASTRAL=true;;
         f) 
@@ -30,6 +32,7 @@ while getopts 'apghmf:' o; do
     esac
 done 
 
+echo "ASTRAL_MOREQUARTETS $DO_MORE_Q_ASTRAL"
 echo "ASTRAL_HEURISTIC $DO_HEURISTIC_ASTRAL"
 echo "ASTRAL: $DO_ASTRAL"
 echo "MP4: $DO_MP4"
@@ -56,10 +59,16 @@ for f in ${FACTORS[@]}; do
     fi
     ASTRAL_SCOREOUTPUT=$TREEOUTPUT/ASTRAL/allscores.txt # This is for ASTRAL, TODO: change the name so that it reflects this
     ASTRAL_H_SCOREOUTPUT=$TREEOUTPUT/ASTRAL-H/allscores.txt # This is for ASTRAL, TODO: change the name so that it reflects this
+    ASTRAL_Q_SCOREOUTPUT=$TREEOUTPUT/ASTRAL-Q/allscores.txt # This is for ASTRAL, TODO: change the name so that it reflects this
     MP4_SCOREOUTPUT=$TREEOUTPUT/MP4/allscores.txt # This is for ASTRAL, TODO: change the name so that it reflects this
     GA_SCOREOUTPUT=$TREEOUTPUT/GA/allscores.txt # This is for ASTRAL, TODO: change the name so that it reflects this
     # initialise tree output space
     mkdir -p $TREEOUTPUT
+    if $DO_MORE_Q_ASTRAL; then
+        mkdir -p $TREEOUTPUT/ASTRAL-Q/logs
+        mkdir -p $TREEOUTPUT/ASTRAL-Q/trees
+        >$ASTRAL_Q_SCOREOUTPUT # set up score output
+    fi
     if $DO_HEURISTIC_ASTRAL; then
         mkdir -p $TREEOUTPUT/ASTRAL-H/logs
         mkdir -p $TREEOUTPUT/ASTRAL-H/trees
@@ -82,7 +91,6 @@ for f in ${FACTORS[@]}; do
         >$GA_SCOREOUTPUT # set up score output
     fi
     touch tmp_quartet_$RUNID.txt
-    touch tmp_nexus_$RUNID.txt
     SETTINGS=(low mod modhigh high veryhigh)
     for setting in ${SETTINGS[@]}; do
         CSVS=$DATASET/$setting'_noborrowing/no-morph'
@@ -122,12 +130,11 @@ for f in ${FACTORS[@]}; do
                             echo $FILE >> $MP4_SCOREOUTPUT
                             Rscript ./QuartetMethods/scripts/QuartetScorer.R -f nexus -r $CURRENT_TREE -m 1 -p 0 -i $TREEOUTPUT/MP4/trees/$id.trees >> $MP4_SCOREOUTPUT
                             echo "✅ MP4 tree scoring" 
-                            rm mp4_nexus_temp.nex
+                            rm tmp_mp4_$RUNID.nex
                         fi
                         if $DO_ASTRAL || $DO_HEURISTIC_ASTRAL; then # run ASTRAL 
-                            python -c "from QuartetMethods.scripts.getQuartets import *; print_quartets('$FILE')" > tmp_quartet_$RUNID.txt
-                            echo "✅ ASTRAL quartet generation" 
-
+                            python -c "from QuartetMethods.scripts.getQuartets import *; print_quartets('$FILE', more_quartets=False)" > tmp_quartet_$RUNID.txt
+                            echo "✅ ASTRAL quartet generation, $(wc -l tmp_quartet_$RUNID.txt | awk '{ print $1 }') quartets" 
                             if $DO_ASTRAL; then 
                                 java -jar ./QuartetMethods/ASTRAL/astral.5.7.8.jar -i tmp_quartet_$RUNID.txt -o $TREEOUTPUT/ASTRAL/trees/$id.tre -x > /dev/null 2> $TREEOUTPUT/ASTRAL/logs/$id.log # Run ASTRAL in exact mode
                                 echo "✅ ASTRAL tree inference" 
@@ -155,11 +162,21 @@ for f in ${FACTORS[@]}; do
                                 rm tmp_bipartitions_$RUNID.bootstrap.trees
                             fi
                         fi
+                        if $DO_MORE_Q_ASTRAL; then # run ASTRAL 
+                            python -c "from QuartetMethods.scripts.getQuartets import *; print_quartets('$FILE',more_quartets=True)" > tmp_quartet_$RUNID.txt
+                            echo "✅ ASTRAL-Q quartet generation, $(wc -l tmp_quartet_$RUNID.txt | awk '{ print $1 }') quartets"
+
+                            java -jar ./QuartetMethods/ASTRAL/astral.5.7.8.jar -i tmp_quartet_$RUNID.txt -o $TREEOUTPUT/ASTRAL-Q/trees/$id.tre -x > /dev/null 2> $TREEOUTPUT/ASTRAL-Q/logs/$id.log # Run ASTRAL in exact mode
+                            echo "✅ ASTRAL-Q tree inference" 
+
+                            echo $FILE >> $ASTRAL_Q_SCOREOUTPUT
+                            Rscript ./QuartetMethods/scripts/QuartetScorer.R -f newick -r $CURRENT_TREE -m 1 -p 0 -i $TREEOUTPUT/ASTRAL-Q/trees/$id.tre >> $ASTRAL_Q_SCOREOUTPUT
+                            echo "✅ ASTRAL-Q tree scoring" 
+                            rm tmp_quartet_$RUNID.txt
+                        fi
                     fi
                 done
             done
         done
     done
-    rm tmp_quartet_$RUNID.txt
-    rm tmp_nexus_$RUNID.txt
 done

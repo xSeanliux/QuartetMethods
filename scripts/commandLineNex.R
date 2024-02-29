@@ -15,7 +15,9 @@ option_list = list(
   make_option(c("-p", "--resolve-poly"), type="integer", default=NULL, 
               help="How to resolve poly (1,2,3,4)", metavar="character"),
   make_option(c("-m", "--morph-weight"), type="double", default=NULL, 
-              help="How to weight morph characters", metavar="character")
+              help="How to weight morph characters", metavar="character"),
+  make_option(c("-h", "--hash"), type="character", default="", 
+              help="Unique hash of the run", metavar="character")
 ); 
 
 opt_parser = OptionParser(option_list=option_list);
@@ -28,7 +30,7 @@ setwd('LingPhyloR')
 source("inferenceUtils.R", local=T)
 setwd(orig_wd)
 
-buildNexusFromFile <- function(file, poly_resolve, file_save, morph_weight) {
+buildNexusFromFile <- function(file, poly_resolve, file_save, morph_weight, hash) {
   
   # if(typeof(poly_resolve) == "character") {
   #   poly_resolve = strtoi(poly_resolve)
@@ -120,7 +122,7 @@ buildNexusFromFile <- function(file, poly_resolve, file_save, morph_weight) {
       mweight = morph_weight != 1 && !(poly_resolve %in% c(4,6,7))
     }
     
-    nexus_str <- writeNexus(df, crit, mweight, isexhaust, NULL)
+    nexus_str <- writeNexus(df, crit, mweight, isexhaust, NULL, hash)
     if (!is.null(file_save)) {
       sink(file_save)
       cat(nexus_str)
@@ -132,7 +134,7 @@ buildNexusFromFile <- function(file, poly_resolve, file_save, morph_weight) {
   }
 }
 
-buildNexusFromFile(opt[['input-data']], opt[['resolve-poly']], opt[['output-file']], opt[['morph-weight']])
+buildNexusFromFile(opt[['input-data']], opt[['resolve-poly']], opt[['output-file']], opt[['morph-weight']], opt[['hash']])
 
 
 

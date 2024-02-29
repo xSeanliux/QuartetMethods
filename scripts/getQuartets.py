@@ -20,6 +20,7 @@ def get_sorted_tuple(tup):
     return str(sorted(tup))
 
 def get_quartets(csv_path: str, 
+                more_quartets: bool=False
                 # use_original_weighting = True, # whether to use the "weight" field in the original CSV (false sets all weights per character to 1)
     ):
     df = pd.read_csv(csv_path)
@@ -72,19 +73,30 @@ def get_quartets(csv_path: str,
             list_form = sorted([
                 (frq, q) for (q, frq) in four_quartets.items()
             ], reverse=True) # a list of (frequency of the quartet, quartet) trees sorted in decreasing order of frequency
-            if len(list_form) > 1 and list_form[0][0] == list_form[1][0]:
-                # throw away these four leaves if the top two counts are the same
-                no_quartet_count += 1
-                continue 
-            returned_quartet = list_form[0][1]
-            if returned_quartet not in all_quartets:
-                all_quartets[returned_quartet] = 0
-            all_quartets[returned_quartet] += 1
+            most_common_cnt = list_form[0][0]
+            most_common_quartets = list(filter(lambda x: x[0] == most_common_cnt, list_form)) # get just the most common quartets
+            if(more_quartets == False):
+                if len(most_common_quartets) > 1:
+                    continue
+                returned_quartet = most_common_quartets[0][1]
+                if returned_quartet not in all_quartets:
+                    all_quartets[returned_quartet] = 0
+                all_quartets[returned_quartet] += 1
+            else:
+                if len(most_common_quartets) >= 3:
+                    continue
+                for _, q in most_common_quartets:
+                    returned_quartet = most_common_quartets[0][1]
+                    if returned_quartet not in all_quartets:
+                        all_quartets[returned_quartet] = 0
+                    all_quartets[returned_quartet] += 1
+
+                
     # print(f"In {no_quartet_count} instances, two quartets were equally likely for a character & four leaves.")
     return (no_quartet_count, all_quartets)
 
-def print_quartets(csv_path: str): 
-    _, quartets = get_quartets(csv_path=csv_path)
+def print_quartets(csv_path: str, more_quartets: str=False): 
+    _, quartets = get_quartets(csv_path=csv_path, more_quartets=more_quartets)
     # print("HI!!!")
     for q, w in quartets.items():
         (a, b, c, d) = q

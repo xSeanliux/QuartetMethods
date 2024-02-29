@@ -10,7 +10,7 @@ library(phytools)
 library(castor)
 library(optparse)
 
-source('/Users/liusean/Desktop/Projects/Coding/Phylo/LingPhyloR/inferenceUtils.R')
+source('./LingPhyloR/inferenceUtils.R')
 
 option_list = list(
   make_option(c("-i", "--input-data"), type="character", default=NULL, 
